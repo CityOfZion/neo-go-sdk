@@ -11,6 +11,18 @@
   Golang SDK for the <b>NEO</b> blockchain.
 </p>
 
+<p align="center">
+  <a href="https://github.com/CityOfZion/neo-go-sdk/releases">
+    <img src="https://img.shields.io/github/tag/CityOfZion/neo-go-sdk.svg?style=flat">
+  </a>
+  <a href="https://circleci.com/gh/CityOfZion/neo-go-sdk/tree/master">
+    <img src="https://circleci.com/gh/CityOfZion/neo-go-sdk/tree/master.svg?style=shield">
+  </a>
+  <a href="https://goreportcard.com/report/github.com/CityOfZion/neo-go-sdk">
+    <img src="https://goreportcard.com/badge/github.com/CityOfZion/neo-go-sdk">
+  </a>
+</p>
+
 ## What?
 
 - Client for interacting with a node on the [NEO](http://neo.org/) blockchain.
