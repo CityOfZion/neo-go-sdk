@@ -1,0 +1,13 @@
+dependencies:
+  override:
+    - echo "TODO"
+
+test:
+  override:
+    - echo "TODO"
+
+deployment:
+  feature-branch:
+    branch: /^((?!master).)*$/
+    commands:
+      - make check-version
