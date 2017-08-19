@@ -1,7 +1,7 @@
 <p align="center">
   <img 
-    src="https://res.cloudinary.com/vidsy/image/upload/v1501603448/logo_w2erl5.jpg" 
-    width="100px"
+    src="http://res.cloudinary.com/vidsy/image/upload/v1503160820/CoZ_Icon_DARKBLUE_200x178px_oq0gxm.png" 
+    width="125px"
   >
 </p>
 
@@ -20,6 +20,9 @@
   </a>
   <a href="https://goreportcard.com/report/github.com/CityOfZion/neo-go-sdk">
     <img src="https://goreportcard.com/badge/github.com/CityOfZion/neo-go-sdk">
+  </a>
+  <a href="https://godoc.org/github.com/CityOfZion/neo-go-sdk/neo">
+    <img src="https://godoc.org/github.com/CityOfZion/neo-go-sdk?status.svg">
   </a>
 </p>
 
@@ -68,7 +71,7 @@ func main() {
 
 ## Examples
 
-Full documentation of how to use this package can be found: [docs/README.md](https://github.com/CityOfZion/neo-go-sdk/blob/master/docs)
+See [GoDoc](https://godoc.org/github.com/CityOfZion/neo-go-sdk/neo) for full documentation.
 
 ## Help
 
@@ -80,3 +83,4 @@ Full documentation of how to use this package can be found: [docs/README.md](htt
 ## License
 
 - Open-source [MIT](https://github.com/CityOfZion/neo-go-sdk/blob/master/LICENSE) 
+- Main author is [@revett](https://github.com/revett).
