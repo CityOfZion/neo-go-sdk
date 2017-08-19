@@ -15,7 +15,8 @@ test:
     - ln -sf "$(pwd)" "$APP_PATH"
     - cd "$APP_PATH" && glide install
   override:
-    - cd "$APP_PATH" && go test -v -cover -race -coverprofile=/home/ubuntu/coverage.out ./neo
+    - cd "$APP_PATH" && make test
+    - cd "$APP_PATH" && make vet
 
 deployment:
   feature-branch:

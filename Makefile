@@ -1,5 +1,4 @@
 BRANCH = "master"
-TEST_PACKAGES = "./neo"
 VERSION = $(shell cat ./VERSION)
 
 check-version:
@@ -14,3 +13,6 @@ push-tag:
 
 test:
 	@go test $(shell glide nv) -cover
+
+vet:
+	@go vet $(shell glide nv)
