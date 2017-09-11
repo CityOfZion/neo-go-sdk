@@ -39,6 +39,7 @@ func executeRequest(method string, bodyParameters []interface{}, nodeURI string,
 	if err != nil {
 		return err
 	}
+	defer response.Body.Close()
 
 	if response.StatusCode > 200 {
 		return fmt.Errorf(
@@ -51,7 +52,6 @@ func executeRequest(method string, bodyParameters []interface{}, nodeURI string,
 	if err != nil {
 		return err
 	}
-	defer response.Body.Close()
 
 	err = json.Unmarshal(bytes, &model)
 	if err != nil {

@@ -8,6 +8,14 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
+func BenchmarkBase58(b *testing.B) {
+	in := "16UwLL9Risc3QfPqBUvKofHmBQ7wMtjvM"
+	for i := 0; i < b.N; i++ {
+		base58 := utility.NewBase58()
+		base58.Decode(in)
+	}
+}
+
 func TestBase58(t *testing.T) {
 	t.Run(".Decode()", func(t *testing.T) {
 		t.Run("HappyCase", func(t *testing.T) {

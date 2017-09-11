@@ -7,6 +7,15 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
+func BenchmarkWIF(b *testing.B) {
+	in := "L1QqQJnpBwbsPGAuutuzPTac8piqvbR1HRjrY5qHup48TBCBFe4g"
+
+	for i := 0; i < b.N; i++ {
+		wif := neo.NewWIF(in)
+		wif.ToPrivateKey()
+	}
+}
+
 func TestWIF(t *testing.T) {
 	t.Run(".ToPrivateKey()", func(t *testing.T) {
 		t.Run("HappyCase", func(t *testing.T) {

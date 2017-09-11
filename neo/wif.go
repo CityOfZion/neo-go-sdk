@@ -1,6 +1,7 @@
 package neo
 
 import (
+	"bytes"
 	"crypto/sha256"
 	"encoding/hex"
 	"fmt"
@@ -61,10 +62,8 @@ func (w WIF) ToPrivateKey() (*PrivateKey, error) {
 	firstFourBytes := secondSHA[:4]
 	lastFourBytes := decoded[len(decoded)-4 : len(decoded)]
 
-	for i, x := range firstFourBytes {
-		if x != lastFourBytes[i] {
-			return nil, fmt.Errorf("WIF failed checksum validation")
-		}
+	if !bytes.Equal(firstFourBytes, lastFourBytes) {
+		return nil, fmt.Errorf("WIF failed checksum validation")
 	}
 
 	privateKey := NewPrivateKey(
