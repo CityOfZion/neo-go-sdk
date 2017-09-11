@@ -158,10 +158,12 @@ func (c Client) Ping() bool {
 		return false
 	}
 
-	_, err = net.Dial("tcp", parsedURI.Host)
+	conn, err := net.Dial("tcp", parsedURI.Host)
 	if err != nil {
 		return false
 	}
+
+	_ = conn.Close()
 
 	return true
 }
