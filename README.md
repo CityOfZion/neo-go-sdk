@@ -76,7 +76,7 @@ See [GoDoc](https://godoc.org/github.com/CityOfZion/neo-go-sdk/neo) for full doc
 ## Help
 
 - Open a new [issue](https://github.com/CityOfZion/neo-go-sdk/issues/new) if you encountered a problem.
-- Or ping **@revett** on the [NEO Slack](https://join.slack.com/t/neoblockchainteam/shared_invite/MjE3ODMxNDUzMDE1LTE1MDA4OTY3NDQtNTMwM2MyMTc2NA).
+- Or ping **@revett** on the [NEO Slack](https://neo-slack-invite.herokuapp.com).
 - Submitting PRs to the project is always welcome! 🎉
 - Check the [Changelog](https://github.com/CityOfZion/neo-go-sdk/blob/master/CHANGELOG.md) for recent changes.
 
