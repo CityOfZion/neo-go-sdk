@@ -17,6 +17,7 @@ test:
   override:
     - cd "$APP_PATH" && make test
     - cd "$APP_PATH" && make vet
+    - cd "$APP_PATH" && make build-cli
 
 deployment:
   feature-branch:

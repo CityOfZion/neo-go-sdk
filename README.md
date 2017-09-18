@@ -73,6 +73,17 @@ func main() {
 
 See [GoDoc](https://godoc.org/github.com/CityOfZion/neo-go-sdk/neo) for full documentation.
 
+## CLI
+
+Debugging a NEO public and private key pair is a common task when interacting with the blockchain.
+Make use of the **neo-go-sdk** CLI to help with this process:
+
+```
+./neo-go-sdk --wif KxQREAjBL6Ga8dw9rPN45pwoZ5dxhAQacEajQke6qmpB7DW6nAWE
+```
+
+This will output the **full details** about the key pair. See [releases](https://github.com/CityOfZion/neo-go-sdk/releases) to download the CLI.
+
 ## Help
 
 - Open a new [issue](https://github.com/CityOfZion/neo-go-sdk/issues/new) if you encountered a problem.

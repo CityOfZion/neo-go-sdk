@@ -5,6 +5,22 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) and this 
 project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## v1.4.0 - 2017-08-19
+
+### Added
+
+- Documentation and configuration for the CLI.
+
+## v1.3.0 - 2017-08-19
+
+### Added
+
+- CLI for debugging a NEO public and private key pair (see [releases](https://github.com/CityOfZion/neo-go-sdk/releases)):
+
+```
+./neo-go-sdk --wif KxQREAjBL6Ga8dw9rPN45pwoZ5dxhAQacEajQke6qmpB7DW6nAWE
+```
+
 ## v1.2.0 - 2017-08-19
 
 ### Added
