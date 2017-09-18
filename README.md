@@ -84,3 +84,4 @@ See [GoDoc](https://godoc.org/github.com/CityOfZion/neo-go-sdk/neo) for full doc
 
 - Open-source [MIT](https://github.com/CityOfZion/neo-go-sdk/blob/master/LICENSE).
 - Main author is [@revett](https://github.com/revett).
+- This project adheres to the [Contributor Covenant Code of Conduct](https://github.com/goreleaser/goreleaser/blob/master/CODE_OF_CONDUCT.md).

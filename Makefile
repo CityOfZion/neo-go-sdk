@@ -1,6 +1,9 @@
 BRANCH = "master"
 VERSION = $(shell cat ./VERSION)
 
+build-cli:
+	@go build .
+
 check-version:
 	@echo "=> Checking if VERSION exists as Git tag..."
 	(! git rev-list ${VERSION})
