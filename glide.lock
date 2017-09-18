@@ -1,6 +1,10 @@
 hash: bff494c2dabf03032fd21b496d85249f128ccec455fe81ea5048c460e697f619
-updated: 2017-08-19T16:48:28.131946968+01:00
-imports: []
+updated: 2017-09-18T19:12:26.681921131+01:00
+imports:
+- name: golang.org/x/crypto
+  version: 7d9177d70076375b9a59c8fde23d52d9c4a7ecd5
+  subpackages:
+  - ripemd160
 testImports:
 - name: github.com/davecgh/go-spew
   version: 6d212800a42e8ab5c146b8ace3490ee17e5225f9

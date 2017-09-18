@@ -69,3 +69,22 @@ func (b Base58) Decode(s string) ([]byte, error) {
 
 	return buf, nil
 }
+
+// Encode encodes a byte slice to be a base58 encoded string.
+func (b Base58) Encode(bytes []byte) string {
+	lookupTable := "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz"
+
+	x := new(big.Int).SetBytes(bytes)
+
+	r := new(big.Int)
+	m := big.NewInt(58)
+	zero := big.NewInt(0)
+	encoded := ""
+
+	for x.Cmp(zero) > 0 {
+		x.QuoRem(x, m, r)
+		encoded = string(lookupTable[r.Int64()]) + encoded
+	}
+
+	return encoded
+}

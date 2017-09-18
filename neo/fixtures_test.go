@@ -1,6 +1,32 @@
 package neo_test
 
 var (
+	testAccounts = []struct {
+		privateKey       string
+		privateKeyBase64 string
+		publicAddress    string
+		wif              string
+	}{
+		{
+			privateKey:       "7d128a6d096f0c14c3a25a2b0c41cf79661bfcb4a8cc95aaaea28bde4d732344",
+			privateKeyBase64: "fRKKbQlvDBTDolorDEHPeWYb/LSozJWqrqKL3k1zI0Q=",
+			publicAddress:    "ALq7AWrhAueN6mJNqk6FHJjnsEoPRytLdW",
+			wif:              "L1QqQJnpBwbsPGAuutuzPTac8piqvbR1HRjrY5qHup48TBCBFe4g",
+		},
+		{
+			privateKey:       "dc5e273f370113018217c876056011dad0c897f6eca074bf741807f35ed271d2",
+			privateKeyBase64: "3F4nPzcBEwGCF8h2BWAR2tDIl/bsoHS/dBgH817ScdI=",
+			publicAddress:    "AVzgMjviERgZSCVoerzaGYhZhKoecd9RXk",
+			wif:              "L4c5RVHp3FyG7duisGHpSCBzEqnTUqvYw4Bv6hnwCgbDTsLYgt9o",
+		},
+		{
+			privateKey:       "07fbee0481bb32441e9fca5d52c66e2554c06591c7f747e5d77bcb6217d1952d",
+			privateKeyBase64: "B/vuBIG7MkQen8pdUsZuJVTAZZHH90fl13vLYhfRlS0=",
+			publicAddress:    "AN2SiiLndiLsX9sYyVYmn3LYyjgozfUnb4",
+			wif:              "KwVEM6nK44RvgsohK5zxYAgRbut9mfGYaTcb7jkqBBfnApCLRJys",
+		},
+	}
+
 	testBlocks = []struct {
 		hash                 string
 		id                   string

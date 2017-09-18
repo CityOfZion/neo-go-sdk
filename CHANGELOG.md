@@ -5,7 +5,45 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) and this 
 project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## 1.1.0 - 2017-08-19
+## v1.2.0 - 2017-08-19
+
+### Added
+
+- [Elliptic curve](https://en.wikipedia.org/wiki/Elliptic_curve) implementation in utility package.
+- Base58 encoding support.
+- Migrated `neo.WIF` struct into `neo.PrivateKey` struct.
+- Derive a public NEO address from a private key (WIF):
+
+```golang
+privateKey, err := neo.NewPrivateKeyFromWIF("L1QqQJnpBwbsPGAuutuzPTac8piqvbR1HRjrY5qHup48TBCBFe4g")
+if err != nil {
+  log.Fatal(err)
+}
+
+publicAddress, err := privateKey.PublicAddress()
+if err != nil {
+  log.Fatal(err)
+}
+
+log.Println(publicAddress)
+```
+
+## v1.1.2 - 2017-08-12
+
+### Changed
+
+- TCP connections made by `client.Ping()` are now closed to stop memory leaks from happening.
+
+## v1.1.1 - 2017-08-12
+
+### Changed
+
+- **@eramus** fixed:
+  - closing response body in wrong place.
+  - made Base58 decode much more efficient and clean.
+- Slack URI in README was updated.
+
+## v1.1.0 - 2017-08-19
 
 ### Added
 
@@ -24,7 +62,7 @@ if err != nil {
 log.Println(privateKey.Value)
 ```
 
-## 1.0.1 - 2017-08-19
+## v1.0.1 - 2017-08-19
 
 ### Added
 
@@ -34,20 +72,20 @@ log.Println(privateKey.Value)
 
 - Logo in README to new CoZ logo.
 
-## 1.0.0 - 2017-08-16
+## v1.0.0 - 2017-08-16
 
 ### Changed
 
 - Added badges to README.
 
-## 0.2.0 - 2017-08-16
+## v0.2.0 - 2017-08-16
 
 ### Added
 
 - Existing code from original repo.
 - Full CI job.
 
-## 0.1.0 - 2017-08-16
+## v0.1.0 - 2017-08-16
 
 ### Added
 
