@@ -17,3 +17,4 @@
 vendor/
 go-tcw.*
 neo-go-sdk
+dist/
