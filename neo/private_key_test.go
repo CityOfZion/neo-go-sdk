@@ -87,4 +87,23 @@ func TestPrivateKey(t *testing.T) {
 			}
 		})
 	})
+
+	t.Run(".Signature()", func(t *testing.T) {
+		t.Run("HappyCase", func(t *testing.T) {
+			for i, account := range testAccounts {
+				description := fmt.Sprintf("%d", i)
+				t.Run(description, func(t *testing.T) {
+					privateKey, err := neo.NewPrivateKeyFromWIF(account.wif)
+					assert.NoError(t, err)
+
+					signatureBytes, err := privateKey.Signature()
+					assert.NoError(t, err)
+
+					signature := hex.EncodeToString(signatureBytes)
+
+					assert.Equal(t, account.signature, signature)
+				})
+			}
+		})
+	})
 }

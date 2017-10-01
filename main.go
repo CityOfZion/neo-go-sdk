@@ -35,11 +35,18 @@ func main() {
 	}
 	publicKey := hex.EncodeToString(publicKeyBytes)
 
+	signatureBytes, err := privateKey.Signature()
+	if err != nil {
+		outputError("Error when creating signature from private key.")
+	}
+	signature := hex.EncodeToString(signatureBytes)
+
 	fmt.Println("Details:")
 	fmt.Printf(" - NEO address (compressed): \t%s\n", publicAddress)
 	fmt.Printf(" - Private key: \t\t%s\n", privateKey.Output())
 	fmt.Printf(" - Private key (base64): \t%s\n", privateKey.OutputBase64())
 	fmt.Printf(" - Public key (compressed): \t%s\n", publicKey)
+	fmt.Printf(" - Signature: \t\t\t%s\n", signature)
 	fmt.Printf(" - WIF (compressed): \t\t%s\n", wif)
 }
 

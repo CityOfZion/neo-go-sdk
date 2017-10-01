@@ -18,6 +18,7 @@ test:
     - cd "$APP_PATH" && make test
     - cd "$APP_PATH" && make vet
     - cd "$APP_PATH" && make build-cli
+    - cd "$APP_PATH" && ./neo-go-sdk --wif KxQREAjBL6Ga8dw9rPN45pwoZ5dxhAQacEajQke6qmpB7DW6nAWE
 
 deployment:
   feature-branch:

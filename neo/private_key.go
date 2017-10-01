@@ -71,40 +71,29 @@ func NewPrivateKeyFromWIF(wif string) (*PrivateKey, error) {
 // PublicAddress derives the public NEO address that is coupled with the private key, and
 // returns it as a string.
 func (p PrivateKey) PublicAddress() (string, error) {
-	bytes, err := p.PublicKey()
+	bytes, err := p.Signature()
 	if err != nil {
 		return "", err
 	}
 
-	bytes = append([]byte{0x21}, bytes...)
-	bytes = append(bytes, 0xAC)
-
-	sha256H := sha256.New()
-	sha256H.Reset()
-	sha256H.Write(bytes)
-	hashOne := sha256H.Sum(nil)
-
-	ripemd160H := ripemd160.New()
-	ripemd160H.Reset()
-	ripemd160H.Write(hashOne)
-	hashTwo := ripemd160H.Sum(nil)
-
 	var ver uint8 = 0x17
 
-	hashTwo = append([]byte{ver}, hashTwo...)
+	bytes = append([]byte{ver}, bytes...)
+
+	sha256H := sha256.New()
 
 	sha256H.Reset()
-	sha256H.Write(hashTwo)
+	sha256H.Write(bytes)
 	hashThree := sha256H.Sum(nil)
 
 	sha256H.Reset()
 	sha256H.Write(hashThree)
 	hashFour := sha256H.Sum(nil)
 
-	hashTwo = append(hashTwo, hashFour[0:4]...)
+	bytes = append(bytes, hashFour[0:4]...)
 
 	base58 := utility.NewBase58()
-	address := base58.Encode(hashTwo)
+	address := base58.Encode(bytes)
 
 	return address, nil
 }
@@ -152,6 +141,29 @@ func (p PrivateKey) Output() string {
 // encoded string.
 func (p PrivateKey) OutputBase64() string {
 	return base64.StdEncoding.EncodeToString(p.bytes)
+}
+
+// Signature creates the signature using the private key.
+func (p PrivateKey) Signature() ([]byte, error) {
+	bytes, err := p.PublicKey()
+	if err != nil {
+		return nil, err
+	}
+
+	bytes = append([]byte{0x21}, bytes...)
+	bytes = append(bytes, 0xAC)
+
+	sha256H := sha256.New()
+	sha256H.Reset()
+	sha256H.Write(bytes)
+	hashOne := sha256H.Sum(nil)
+
+	ripemd160H := ripemd160.New()
+	ripemd160H.Reset()
+	ripemd160H.Write(hashOne)
+	hashTwo := ripemd160H.Sum(nil)
+
+	return hashTwo, nil
 }
 
 func (p PrivateKey) createEllipticCurve() utility.EllipticCurve {

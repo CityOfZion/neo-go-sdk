@@ -5,6 +5,29 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) and this 
 project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## v1.6.0 - 2017-09-01
+
+### Added
+
+- Ability to derive signature from private key.
+- CLI outputs signature from WIF using new function.
+
+```golang
+privateKey, err := neo.NewPrivateKeyFromWIF("L1QqQJnpBwbsPGAuutuzPTac8piqvbR1HRjrY5qHup48TBCBFe4g")
+if err != nil {
+  log.Fatal(err)
+}
+
+signatureBytes, err := privateKey.Signature()
+if err != nil {
+  log.Fatal(err)
+}
+
+signature := hex.EncodeToString(signatureBytes)
+
+log.Println(signature)
+```
+
 ## v1.5.0 - 2017-09-01
 
 ### Added

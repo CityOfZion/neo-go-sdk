@@ -6,6 +6,7 @@ var (
 		privateKeyBase64 string
 		publicAddress    string
 		publicKey        string
+		signature        string
 		wif              string
 	}{
 		{
@@ -13,6 +14,7 @@ var (
 			privateKeyBase64: "fRKKbQlvDBTDolorDEHPeWYb/LSozJWqrqKL3k1zI0Q=",
 			publicAddress:    "ALq7AWrhAueN6mJNqk6FHJjnsEoPRytLdW",
 			publicKey:        "02028a99826edc0c97d18e22b6932373d908d323aa7f92656a77ec26e8861699ef",
+			signature:        "3775292229eccdf904f16fff8e83e7cffdc0f0ce",
 			wif:              "L1QqQJnpBwbsPGAuutuzPTac8piqvbR1HRjrY5qHup48TBCBFe4g",
 		},
 		{
@@ -20,6 +22,7 @@ var (
 			privateKeyBase64: "3F4nPzcBEwGCF8h2BWAR2tDIl/bsoHS/dBgH817ScdI=",
 			publicAddress:    "AVzgMjviERgZSCVoerzaGYhZhKoecd9RXk",
 			publicKey:        "02c39609dc92eba0221809f0420e80728649c2515f95536288f848e324751cf738",
+			signature:        "9bfdbeb5ac91a220742b1dac66b402e8b7cd9107",
 			wif:              "L4c5RVHp3FyG7duisGHpSCBzEqnTUqvYw4Bv6hnwCgbDTsLYgt9o",
 		},
 		{
@@ -27,6 +30,7 @@ var (
 			privateKeyBase64: "B/vuBIG7MkQen8pdUsZuJVTAZZHH90fl13vLYhfRlS0=",
 			publicAddress:    "AN2SiiLndiLsX9sYyVYmn3LYyjgozfUnb4",
 			publicKey:        "038d92ca035622f04be0c6d23a65bcad04ce638c4ebd18b87facbd101323d349f9",
+			signature:        "44922f93bf285dfc5199f28a028e82387d869306",
 			wif:              "KwVEM6nK44RvgsohK5zxYAgRbut9mfGYaTcb7jkqBBfnApCLRJys",
 		},
 	}
