@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/hex"
 	"fmt"
 	"os"
 
@@ -28,10 +29,17 @@ func main() {
 		outputError("Error when deriving public address from private key.")
 	}
 
+	publicKeyBytes, err := privateKey.PublicKey()
+	if err != nil {
+		outputError("Error when deriving public key from private key.")
+	}
+	publicKey := hex.EncodeToString(publicKeyBytes)
+
 	fmt.Println("Details:")
+	fmt.Printf(" - NEO address (compressed): \t%s\n", publicAddress)
 	fmt.Printf(" - Private key: \t\t%s\n", privateKey.Output())
 	fmt.Printf(" - Private key (base64): \t%s\n", privateKey.OutputBase64())
-	fmt.Printf(" - Public address (compressed): %s\n", publicAddress)
+	fmt.Printf(" - Public key (compressed): \t%s\n", publicKey)
 	fmt.Printf(" - WIF (compressed): \t\t%s\n", wif)
 }
 

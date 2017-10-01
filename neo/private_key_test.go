@@ -1,6 +1,7 @@
 package neo_test
 
 import (
+	"encoding/hex"
 	"fmt"
 	"testing"
 
@@ -63,6 +64,25 @@ func TestPrivateKey(t *testing.T) {
 					publicAddress, err := privateKey.PublicAddress()
 					assert.NoError(t, err)
 					assert.Equal(t, account.publicAddress, publicAddress)
+				})
+			}
+		})
+	})
+
+	t.Run(".PublicKey()", func(t *testing.T) {
+		t.Run("HappyCase", func(t *testing.T) {
+			for i, account := range testAccounts {
+				description := fmt.Sprintf("%d", i)
+				t.Run(description, func(t *testing.T) {
+					privateKey, err := neo.NewPrivateKeyFromWIF(account.wif)
+					assert.NoError(t, err)
+
+					publicKeyBytes, err := privateKey.PublicKey()
+					assert.NoError(t, err)
+
+					publicKey := hex.EncodeToString(publicKeyBytes)
+
+					assert.Equal(t, account.publicKey, publicKey)
 				})
 			}
 		})

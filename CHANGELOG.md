@@ -5,6 +5,29 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) and this 
 project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## v1.5.0 - 2017-09-01
+
+### Added
+
+- Ability to derive public key value from private key.
+- CLI outputs public key from WIF using new function.
+
+```golang
+privateKey, err := neo.NewPrivateKeyFromWIF("L1QqQJnpBwbsPGAuutuzPTac8piqvbR1HRjrY5qHup48TBCBFe4g")
+if err != nil {
+  log.Fatal(err)
+}
+
+publicKeyBytes, err := privateKey.PublicKey()
+if err != nil {
+  log.Fatal(err)
+}
+
+publicKey := hex.EncodeToString(publicKeyBytes)
+
+log.Println(publicKey)
+```
+
 ## v1.4.1 - 2017-09-01
 
 ### Added

@@ -68,35 +68,12 @@ func NewPrivateKeyFromWIF(wif string) (*PrivateKey, error) {
 	}, nil
 }
 
-// PublicAddress derives the public key address that is coupled with the private key, and
-// outputs it as a string.
+// PublicAddress derives the public NEO address that is coupled with the private key, and
+// returns it as a string.
 func (p PrivateKey) PublicAddress() (string, error) {
-	ellipticCurve := p.createEllipticCurve()
-	bytesInt := new(big.Int).SetBytes(p.bytes)
-
-	point, err := ellipticCurve.ScalarBaseMult(bytesInt)
+	bytes, err := p.PublicKey()
 	if err != nil {
 		return "", err
-	}
-
-	if !ellipticCurve.IsOnCurve(*point) {
-		return "", errors.New("failed to derive public key using elliptic curve")
-	}
-
-	pointXBytes := point.X.Bytes()
-	paddedPointXBytes := append(
-		bytes.Repeat(
-			[]byte{0x00},
-			32-len(pointXBytes),
-		),
-		pointXBytes...,
-	)
-
-	var bytes []byte
-	if point.Y.Bit(0) == 0 {
-		bytes = append([]byte{0x02}, paddedPointXBytes...)
-	} else {
-		bytes = append([]byte{0x03}, paddedPointXBytes...)
 	}
 
 	bytes = append([]byte{0x21}, bytes...)
@@ -130,6 +107,40 @@ func (p PrivateKey) PublicAddress() (string, error) {
 	address := base58.Encode(hashTwo)
 
 	return address, nil
+}
+
+// PublicKey derives the public key that is coupled with the private key, and returns it
+// in an array of bytes.
+func (p PrivateKey) PublicKey() ([]byte, error) {
+	ellipticCurve := p.createEllipticCurve()
+	bytesInt := new(big.Int).SetBytes(p.bytes)
+
+	point, err := ellipticCurve.ScalarBaseMult(bytesInt)
+	if err != nil {
+		return nil, err
+	}
+
+	if !ellipticCurve.IsOnCurve(*point) {
+		return nil, errors.New("failed to derive public key using elliptic curve")
+	}
+
+	pointXBytes := point.X.Bytes()
+	paddedPointXBytes := append(
+		bytes.Repeat(
+			[]byte{0x00},
+			32-len(pointXBytes),
+		),
+		pointXBytes...,
+	)
+
+	var bytes []byte
+	if point.Y.Bit(0) == 0 {
+		bytes = append([]byte{0x02}, paddedPointXBytes...)
+	} else {
+		bytes = append([]byte{0x03}, paddedPointXBytes...)
+	}
+
+	return bytes, nil
 }
 
 // Output converts the 32-byte slice representation of the private key to a string.
