@@ -5,6 +5,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) and this
 project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## v1.7.0 - 2017-10-27
+
+### Added
+
+- New function to fetch a storage value of a given smart contract.
+
+```golang
+storage, err := client.GetStorage(
+  "0xecc6b20d3ccac1ee9ef109af5a7cdb85706b1df9", // RPX smart contract
+  "totalSupply",
+)
+```
+
 ## v1.6.1 - 2017-10-13
 
 ### Changed

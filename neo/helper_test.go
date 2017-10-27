@@ -7,14 +7,14 @@ import (
 )
 
 const (
-	cozNodeURI = "http://test%d.cityofzion.io:8880"
+	neoNodeURI = "http://seed%d.neo.org:10332"
 )
 
 func selectTestNode() string {
 	var nodeURI string
 
 	for i := 1; i <= 5; i++ {
-		uri := fmt.Sprintf(cozNodeURI, i)
+		uri := fmt.Sprintf(neoNodeURI, i)
 		client := neo.NewClient(uri)
 
 		ok := client.Ping()

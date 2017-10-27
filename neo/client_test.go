@@ -99,6 +99,20 @@ func TestClient(t *testing.T) {
 		})
 	})
 
+	t.Run(".GetStorage()", func(t *testing.T) {
+		t.Run("HappyCase", func(t *testing.T) {
+			client := neo.NewClient(nodeURI)
+
+			storage, err := client.GetStorage(
+				"0xecc6b20d3ccac1ee9ef109af5a7cdb85706b1df9",
+				"totalSupply",
+			)
+
+			assert.NoError(t, err)
+			assert.Equal(t, "0072ef3e2597e201", storage)
+		})
+	})
+
 	t.Run(".GetTransaction()", func(t *testing.T) {
 		t.Run("HappyCase", func(t *testing.T) {
 			client := neo.NewClient(nodeURI)

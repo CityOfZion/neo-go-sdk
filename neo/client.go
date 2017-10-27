@@ -1,6 +1,7 @@
 package neo
 
 import (
+	"encoding/hex"
 	"net"
 	"net/url"
 
@@ -101,6 +102,22 @@ func (c Client) GetConnectionCount() (int64, error) {
 	err := executeRequest("getconnectioncount", nil, c.NodeURI, &response)
 	if err != nil {
 		return 0, err
+	}
+
+	return response.Result, nil
+}
+
+// GetStorage takes a smart contract hash and a storage key, and returns the storage value
+// if available.
+func (c Client) GetStorage(scriptHash string, storageKey string) (string, error) {
+	requestBodyParams := []interface{}{
+		scriptHash, hex.EncodeToString([]byte(storageKey)),
+	}
+	var response response.String
+
+	err := executeRequest("getstorage", requestBodyParams, c.NodeURI, &response)
+	if err != nil {
+		return "", err
 	}
 
 	return response.Result, nil

@@ -43,11 +43,11 @@ var (
 		numberOfTransactions int
 	}{
 		{
-			hash:                 "0x3f0b498c0d57f73c674a1e28045f5e9a0991f9dac214076fadb5e6bafd546170",
+			hash:                 "0x9ceb257832478ef778c1f26ad916ef8cbf116c71fe3cd6c5a8f672c1663539ae",
 			id:                   "1",
-			index:                316675,
-			merkleRoot:           "0xd51ef6237173eee1d422811c2e79d2e30928ed7c487ff9be60c493a9901b03b8",
-			numberOfTransactions: 2,
+			index:                1511369,
+			merkleRoot:           "0x04bb7e7c56711b3387f1593c36dcdc36516b6ccd06d0e0c15adeba3c33643ebe",
+			numberOfTransactions: 17,
 		},
 	}
 
@@ -57,9 +57,9 @@ var (
 		size int64
 	}{
 		{
-			hash: "0x8aaf766179c07941f24a08157d7e6796e6d4aa999d3eaf83e74024c28d081af0",
+			hash: "0xc515c4d2db27e06fd2305a5c5378f820d2c4cc04477ebe40ffa40b956eb4f8b5",
 			id:   "1",
-			size: 262,
+			size: 202,
 		},
 	}
 
@@ -71,11 +71,11 @@ var (
 		value string
 	}{
 		{
-			asset: "0x602c79718b16e442de58778e148d0b1084e3b2dffd5de6b7b16cee7969282de7",
-			hash:  "0x8aaf766179c07941f24a08157d7e6796e6d4aa999d3eaf83e74024c28d081af0",
+			asset: "0xc56f33fc6ecfcd0c225c4ab356fee59390af8560be0e930faebe74a6daff7c9b",
+			hash:  "0xc515c4d2db27e06fd2305a5c5378f820d2c4cc04477ebe40ffa40b956eb4f8b5",
 			id:    "1",
 			index: 0,
-			value: "50",
+			value: "96",
 		},
 	}
 
@@ -86,8 +86,8 @@ var (
 	}{
 		{
 			id:    "1",
-			index: 316675,
-			hash:  "0x3f0b498c0d57f73c674a1e28045f5e9a0991f9dac214076fadb5e6bafd546170",
+			index: 1511369,
+			hash:  "0x9ceb257832478ef778c1f26ad916ef8cbf116c71fe3cd6c5a8f672c1663539ae",
 		},
 	}
 
