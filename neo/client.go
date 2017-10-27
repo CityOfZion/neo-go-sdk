@@ -184,3 +184,41 @@ func (c Client) Ping() bool {
 
 	return true
 }
+
+// ValidateAddress takes a public NEO address and checks if it is valid.
+func (c Client) ValidateAddress(address string) (bool, error) {
+	requestBodyParams := []interface{}{
+		address,
+	}
+	var response response.StringMap
+
+	err := executeRequest("validateaddress", requestBodyParams, c.NodeURI, &response)
+	if err != nil {
+		return false, err
+	}
+
+	if _, ok := response.Result["address"]; !ok {
+		return false, nil
+	}
+
+	if _, ok := response.Result["address"].(string); !ok {
+		return false, nil
+	}
+
+	if _, ok := response.Result["isvalid"]; !ok {
+		return false, nil
+	}
+
+	if _, ok := response.Result["isvalid"].(bool); !ok {
+		return false, nil
+	}
+
+	returnedAddress := response.Result["address"].(string)
+	valid := response.Result["isvalid"].(bool)
+
+	if address == returnedAddress && valid {
+		return true, nil
+	}
+
+	return false, nil
+}

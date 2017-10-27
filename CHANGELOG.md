@@ -5,6 +5,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) and this
 project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## v1.8.0 - 2017-10-27
+
+### Added
+
+- New function to validate a public NEO address.
+
+```golang
+isValid, err := client.ValidateAddress("ARnLq3m1jsrZU7SS7jLHAvNm37GmaZbsPy")
+```
+
 ## v1.7.0 - 2017-10-27
 
 ### Added
