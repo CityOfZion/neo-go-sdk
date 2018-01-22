@@ -2,6 +2,8 @@ package neo
 
 import (
 	"encoding/hex"
+	"errors"
+	"fmt"
 	"net"
 	"net/url"
 
@@ -12,22 +14,40 @@ import (
 type (
 	// Client is the entrypoint for the package, it is used to carry out all actions.
 	Client struct {
-		NodeURI string
+		Node     string
+		nodeURIs []string
 	}
 )
 
-// NewClient creates a new Client struct using the providing NodeURI argument.
+// NewClient creates a new Client struct, with a single node URI.
 func NewClient(nodeURI string) Client {
 	return Client{
-		NodeURI: nodeURI,
+		Node:     nodeURI,
+		nodeURIs: []string{nodeURI},
 	}
+}
+
+// NewClientUsingMultipleNodes creates a new Client struct, and allows multiple node URIs
+// to be passed in. Before the Client struct is returned, each node is queried to determine
+// its block height. The node with the highest block count is chosen.
+func NewClientUsingMultipleNodes(nodeURIs []string) (*Client, error) {
+	if len(nodeURIs) == 0 {
+		return nil, errors.New("Length of 'nodeURIs' argument must be greater than 0")
+	}
+
+	client := Client{
+		nodeURIs: nodeURIs,
+	}
+
+	client.SelectBestNode()
+	return &client, nil
 }
 
 // GetBestBlockHash returns the hash of the best block in the chain.
 func (c Client) GetBestBlockHash() (string, error) {
 	var response response.String
 
-	err := executeRequest("getbestblockhash", nil, c.NodeURI, &response)
+	err := executeRequest("getbestblockhash", nil, c.Node, &response)
 	if err != nil {
 		return "", err
 	}
@@ -43,7 +63,7 @@ func (c Client) GetBlockByHash(hash string) (*models.Block, error) {
 	}
 	var response response.Block
 
-	err := executeRequest("getblock", requestBodyParams, c.NodeURI, &response)
+	err := executeRequest("getblock", requestBodyParams, c.Node, &response)
 	if err != nil {
 		return nil, err
 	}
@@ -59,7 +79,7 @@ func (c Client) GetBlockByIndex(index int64) (*models.Block, error) {
 	}
 	var response response.Block
 
-	err := executeRequest("getblock", requestBodyParams, c.NodeURI, &response)
+	err := executeRequest("getblock", requestBodyParams, c.Node, &response)
 	if err != nil {
 		return nil, err
 	}
@@ -71,7 +91,7 @@ func (c Client) GetBlockByIndex(index int64) (*models.Block, error) {
 func (c Client) GetBlockCount() (int64, error) {
 	var response response.Integer
 
-	err := executeRequest("getblockcount", nil, c.NodeURI, &response)
+	err := executeRequest("getblockcount", nil, c.Node, &response)
 	if err != nil {
 		return 0, err
 	}
@@ -87,7 +107,7 @@ func (c Client) GetBlockHash(index int64) (string, error) {
 	}
 	var response response.String
 
-	err := executeRequest("getblockhash", requestBodyParams, c.NodeURI, &response)
+	err := executeRequest("getblockhash", requestBodyParams, c.Node, &response)
 	if err != nil {
 		return "", err
 	}
@@ -99,7 +119,7 @@ func (c Client) GetBlockHash(index int64) (string, error) {
 func (c Client) GetConnectionCount() (int64, error) {
 	var response response.Integer
 
-	err := executeRequest("getconnectioncount", nil, c.NodeURI, &response)
+	err := executeRequest("getconnectioncount", nil, c.Node, &response)
 	if err != nil {
 		return 0, err
 	}
@@ -115,7 +135,7 @@ func (c Client) GetStorage(scriptHash string, storageKey string) (string, error)
 	}
 	var response response.String
 
-	err := executeRequest("getstorage", requestBodyParams, c.NodeURI, &response)
+	err := executeRequest("getstorage", requestBodyParams, c.Node, &response)
 	if err != nil {
 		return "", err
 	}
@@ -131,7 +151,7 @@ func (c Client) GetTransaction(hash string) (*models.Transaction, error) {
 	}
 	var response response.Transaction
 
-	err := executeRequest("getrawtransaction", requestBodyParams, c.NodeURI, &response)
+	err := executeRequest("getrawtransaction", requestBodyParams, c.Node, &response)
 	if err != nil {
 		return nil, err
 	}
@@ -147,7 +167,7 @@ func (c Client) GetTransactionOutput(hash string, index int64) (*models.Vout, er
 	}
 	var response response.Vout
 
-	err := executeRequest("gettxout", requestBodyParams, c.NodeURI, &response)
+	err := executeRequest("gettxout", requestBodyParams, c.Node, &response)
 	if err != nil {
 		return nil, err
 	}
@@ -160,7 +180,7 @@ func (c Client) GetTransactionOutput(hash string, index int64) (*models.Vout, er
 func (c Client) GetUnconfirmedTransactions() ([]string, error) {
 	var response response.StringArray
 
-	err := executeRequest("getrawmempool", nil, c.NodeURI, &response)
+	err := executeRequest("getrawmempool", nil, c.Node, &response)
 	if err != nil {
 		return nil, err
 	}
@@ -168,9 +188,43 @@ func (c Client) GetUnconfirmedTransactions() ([]string, error) {
 	return response.Result, nil
 }
 
+// SelectBestNode selects the best node to use for RPC calls. If there is a single
+// node URI then that will be used. If there are 2 or more then each node is called
+// and the block count is compared. The node with the heighest block count is used.
+func (c *Client) SelectBestNode() error {
+	if len(c.nodeURIs) == 1 {
+		c.Node = c.nodeURIs[0]
+		return nil
+	}
+
+	var bestNode string
+	highestBlock := int64(0)
+
+	for _, nodeURI := range c.nodeURIs {
+		tempClient := NewClient(nodeURI)
+
+		blockCount, err := tempClient.GetBlockCount()
+		if err != nil {
+			continue
+		}
+
+		if blockCount > highestBlock {
+			highestBlock = blockCount
+			bestNode = nodeURI
+		}
+	}
+
+	if bestNode == "" {
+		return fmt.Errorf("Unable to communicate with any nodes")
+	}
+
+	c.Node = bestNode
+	return nil
+}
+
 // Ping checks if the node is online.
 func (c Client) Ping() bool {
-	parsedURI, err := url.Parse(c.NodeURI)
+	parsedURI, err := url.Parse(c.Node)
 	if err != nil {
 		return false
 	}
@@ -192,7 +246,7 @@ func (c Client) ValidateAddress(address string) (bool, error) {
 	}
 	var response response.StringMap
 
-	err := executeRequest("validateaddress", requestBodyParams, c.NodeURI, &response)
+	err := executeRequest("validateaddress", requestBodyParams, c.Node, &response)
 	if err != nil {
 		return false, err
 	}
